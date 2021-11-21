@@ -1,9 +1,9 @@
 package com.pp.helpdesk.model.company;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.pp.helpdesk.model.user.User;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -16,6 +16,8 @@ public class Company {
     private String country;
     private String nip;
     private String regon;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<User> users;
 
     public Company(String name, String street, String zipCode, String country, String nip, String regon) {
         this.name = name;
@@ -84,5 +86,13 @@ public class Company {
 
     public void setRegon(String regon) {
         this.regon = regon;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
