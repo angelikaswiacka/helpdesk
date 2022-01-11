@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/ticket")
 public class TicketApi {
-    private TicketService ticketService;
+    private final TicketService ticketService;
 
     public TicketApi(TicketService ticketService) {
         this.ticketService = ticketService;
