@@ -1,5 +1,6 @@
 package com.pp.helpdesk.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pp.helpdesk.model.company.Company;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String userName;
+    @JsonIgnore
     private String password;
     private String email;
     private String phone;

@@ -34,6 +34,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
                 .antMatchers("/testAuth/**").permitAll()
+                .antMatchers("/company/exportJson").permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

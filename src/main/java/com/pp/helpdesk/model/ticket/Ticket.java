@@ -1,5 +1,6 @@
 package com.pp.helpdesk.model.ticket;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pp.helpdesk.model.application.Application;
 import com.pp.helpdesk.model.user.User;
 
@@ -12,7 +13,9 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ticketId;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User client;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User serviceman;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

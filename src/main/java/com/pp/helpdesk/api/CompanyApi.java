@@ -2,8 +2,15 @@ package com.pp.helpdesk.api;
 
 import com.pp.helpdesk.model.company.Company;
 import com.pp.helpdesk.service.CompanyService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -34,12 +41,38 @@ public class CompanyApi {
     }
 
     @GetMapping("/getId")
-    public Company getCompanyById(@RequestParam(name = "id") Long id){
+    public Company getCompanyById(@RequestParam(name = "id") Long id) {
         return companyService.getCompanyById(id);
     }
 
     @DeleteMapping("/delete")
-    public String deleteCompany(@RequestParam(name = "id") Long id){
+    public String deleteCompany(@RequestParam(name = "id") Long id) {
         return companyService.deleteCompany(id);
+    }
+
+    @GetMapping("/exportJson")
+    public ResponseEntity<byte[]> exportJsonFile() throws IOException {
+        String companyJsonString = companyService.exportJson();
+
+        byte[] companyJsonBytes = companyJsonString.getBytes();
+
+        File outputFile = new File("exported.json");
+        try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
+            outputStream.write(companyJsonBytes);
+        }
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=customers.json")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentLength(companyJsonBytes.length)
+                .body(companyJsonBytes);
+    }
+
+    @PostMapping("/importJson")
+    public List<Company> importJsonFile() throws FileNotFoundException {
+        File exported = new File("exported.json");
+
+        return companyService.importJson(exported);
     }
 }
