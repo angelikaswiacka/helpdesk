@@ -7,7 +7,6 @@ import com.pp.helpdesk.payload.request.SignupRequest;
 import com.pp.helpdesk.payload.response.JwtResponse;
 import com.pp.helpdesk.payload.response.MessageResponse;
 import com.pp.helpdesk.service.UserDetailsImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,20 +26,24 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 public class AuthApi {
 
-    @Autowired
+
     AuthenticationManager authenticationManager;
 
-    @Autowired
     UserRepository userRepository;
 
-    @Autowired
     RoleRepository roleRepository;
 
-    @Autowired
     PasswordEncoder encoder;
 
-    @Autowired
     JwtUtils jwtUtils;
+
+    public AuthApi(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.encoder = encoder;
+        this.jwtUtils = jwtUtils;
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

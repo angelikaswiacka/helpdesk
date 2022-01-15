@@ -23,13 +23,6 @@ public class CompanyApi {
         this.companyService = companyService;
     }
 
-    @GetMapping("/saveTest")
-    public Company saveCompanyTest() {
-
-        Company companyTestName = new Company("Margarteka", "Zielna 7", "66-606", "Polska", "6653043087", "933046008");
-        return companyService.saveCompany(companyTestName);
-    }
-
     @PostMapping("/save")
     public Company saveCompany(@RequestBody Company company) {
         return companyService.saveCompany(company);

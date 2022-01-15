@@ -15,12 +15,6 @@ public class ApplicationApi {
         this.applicationService = applicationService;
     }
 
-    @GetMapping("/saveApplicationTest")
-    public Application saveApplicationTest() {
-        Application applicationTestName = new Application("Pyłek", "Motylek","Polski");
-        return applicationService.saveApplication(applicationTestName);
-    }
-
     @PostMapping("/save")
     public Application saveApplication(@RequestBody Application application){
         return applicationService.saveApplication(application);

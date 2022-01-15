@@ -33,7 +33,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
-                .antMatchers("/testAuth/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/company/exportJson").permitAll()
                 .anyRequest().authenticated();
 
